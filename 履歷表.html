@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人履歷 - 蘇育萱</title>
+    <style>
+        /* 根變數 - 沿用藍灰色主題 */
+        :root {
+            --primary-blue: #5b7dae; /* 主藍色 */
+            --secondary-gray: #eef1f6; /* 淺灰色背景 */
+            --dark-text: #2c3e50; /* 深藍色文字 */
+            --light-bg: #ffffff; /* 內容區塊白色背景 */
+            --accent-color: #ebc485; /* 技能/重點強調色 (橘黃色) */
+            --border-color: #bdc3c7;
+            --sidebar-bg: #4a6c98; /* 左側欄深藍色 */
+        }
+
+        /* 基礎設定 */
+        body {
+            font-family: '微軟正黑體', Arial, sans-serif;
+            background-color: var(--secondary-gray);
+            color: var(--dark-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .resume-container {
+            width: 90%;
+            max-width: 1000px; /* 稍微放大容器以適應兩欄 */
+            background-color: var(--light-bg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            
+            /* 使用 Flexbox 建立兩欄佈局 */
+            display: flex; 
+        }
+
+        /* ==== 左側欄樣式 (Sidebar) ==== */
+        .sidebar {
+            width: 35%; /* 左側佔 35% 寬度 */
+            background-color: var(--sidebar-bg);
+            color: white; /* 左側文字變白色 */
+            padding: 30px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            flex-shrink: 0; /* 不讓它被壓縮 */
+        }
+
+        /* 個人資訊區塊 */
+        .header-sidebar {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .header-sidebar h1 {
+            color: white; /* 名稱白色 */
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .header-sidebar p {
+            margin: 5px 0 0;
+            color: #d1d8e0;
+            font-size: 1em;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column; /* 聯絡資訊垂直排列 */
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            text-align: left;
+        }
+        .contact-info span {
+            display: block;
+        }
+
+        /* 左側欄的區塊標題 */
+        .sidebar .section h2 {
+            color: var(--accent-color); /* 提示/技能標題用橘色 */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        /* 技能評級 (左側欄) */
+        .sidebar .skills-list {
+            list-style: none;
+            padding: 0;
+            color: white; /* 技能名稱用白色 */
+        }
+
+        .sidebar .skills-list li {
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar .star {
+            color: #bdc3c7; /* 預設為淺灰色星星 */
+        }
+        
+        .sidebar .star.filled {
+            color: var(--accent-color); /* 評分後的橘黃色星星 */
+        }
+        
+        .sidebar p, .sidebar li {
+            font-size: 0.9em;
+        }
+
+        /* JS 互動提示框 */
+        #skill-tip {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1); /* 半透明背景 */
+            border-left: 5px solid var(--accent-color);
+            font-size: 0.9em;
+            display: none; 
+            color: white;
+        }
+        
+        /* ==== 右側欄樣式 (Main Content) ==== */
+        .main-content {
+            width: 65%; /* 右側佔 65% 寬度 */
+            padding: 40px;
+        }
+
+        .main-content .section h2 {
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 0; /* 調整右側標題間距 */
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        /* 項目佈局 */
+        .item {
+            margin-bottom: 20px;
+        }
+
+        .item h3 {
+            color: var(--dark-text); /* 右側內容標題用深藍色 */
+            margin: 0 0 5px;
+            font-size: 1.1em;
+            display: inline-block;
+        }
+        
+        .item span.date {
+            float: right;
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+
+        .item p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+
+        .item ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="resume-container">
+        
+        <div class="sidebar">
+            
+            <div class="header-sidebar">
+                <h1>蘇育萱</h1>
+                <p>金融系新鮮大一人</p>
+            </div>
+            
+            <div class="section contact">
+                <h2>聯絡方式</h2>
+                <div class="contact-info">
+                    <span>📧 Email: C114138110@nkust.edu.tw</span>
+                    <span>📞 電話: (09) 72-***-652</span>
+                    <span>🏠 地址: 台灣嘉義縣</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>個人簡介</h2>
+                <div class="item">
+                    <p>擁有電軟乙、多張TQC證照，對於Office軟體應用皆有基本了解。平時興趣喜歡剪片!</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>專業技能</h2><p>(點按星星能看到技能詳細說明)</p>
+                <ul class="skills-list">
+                    <li data-skill="Word">
+                        <span>Word</span>
+                        <div class="skill-rating" data-level="4.5" onclick="showSkillTip(this)">
+                            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                        </div>
+                    </li>
+                    <li data-skill="Power Point">
+                        <span>Power Point</span>
+                        <div class="skill-rating" data-level="3" onclick="showSkillTip(this)">
+                            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                        </div>
+                    </li>
+                    <li data-skill="Excel">
+                        <span>Excel</span>
+                        <div class="skill-rating" data-level="4" onclick="showSkillTip(this)">
+                            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                        </div>
+                    </li>
+                    <li data-skill="VLLO / CapCut">
+                        <span>VLLO / CapCut</span>
+                        <div class="skill-rating" data-level="4" onclick="showSkillTip(this)">
+                            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
+                        </div>
+                    </li>
+                </ul>
+                <div id="skill-tip">點擊上方的技能評分，這裡會顯示該技能的詳細說明。</div>
+            </div>
+
+        </div>
+
+        <div class="main-content">
+            
+            <div class="section">
+                <h2>求學經驗 (Experience)</h2>
+                <div class="item">
+                    <h3>高科大</h3>
+                    <span class="date">2025/09 – 迄今</span>
+                    <p><strong>技術學院</strong> | 高雄</p>
+                    <ul>
+                        <li>負責學習金融相關方面知識。</li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <h3>嘉義高商</h3>
+                    <span class="date">2022/09 – 2025/06</span>
+                    <p><strong>高中職業學校</strong> | 嘉義</p>
+                    <ul>
+                        <li>參與校內專題競賽奪得第二佳績</li>
+                        <li>參加管樂社團多次為校爭光</li>
+                        <li>參加打擊重奏比賽前進全國賽，兩次市賽第一</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>學歷 (Education)</h2>
+                <div class="item">
+                    <h3>國際智慧金融技優專班 就讀中</h3>
+                    <span class="date">2025/09 – 迄今
+                    </span>
+                    <p><strong>國立高雄科技大學</strong> | 高雄</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // JavaScript 邏輯：處理技能評級的互動
+        
+        const skillDetails = {
+            "Word": "基本文書操作皆熟悉可高效地建立和編輯文件。",
+            "Power Point": "能熟悉製作且呈現生動有趣的簡報。",
+            "Excel": "能和資料庫做連結並且統整資料做出分析表格。",
+            "VLLO / CapCut": "基本關鍵幀設定、上字幕、剪輯等。"
+        };
+
+        const tipBox = document.getElementById('skill-tip');
+
+        function showSkillTip(element) {
+            const skillName = element.closest('li').dataset.skill;
+            const detail = skillDetails[skillName] || "無更多詳細資訊。";
+            
+            tipBox.innerHTML = `<strong>${skillName}：</strong> ${detail}`;
+            tipBox.style.display = 'block';
+        }
+
+        // 點擊星星時改變其顏色 (視覺回饋)
+        document.querySelectorAll('.skill-rating').forEach(ratingDiv => {
+            ratingDiv.addEventListener('click', function(event) {
+                if (event.target.classList.contains('star')) {
+                    const stars = this.querySelectorAll('.star');
+                    let targetIndex = Array.from(stars).indexOf(event.target);
+                    
+                    if (event.target.classList.contains('filled')) {
+                        for (let i = targetIndex + 1; i < stars.length; i++) {
+                            stars[i].classList.remove('filled');
+                        }
+                    } else {
+                        for (let i = 0; i <= targetIndex; i++) {
+                            stars[i].classList.add('filled');
+                        }
+                    }
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+             tipBox.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
